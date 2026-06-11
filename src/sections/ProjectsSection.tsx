@@ -7,6 +7,7 @@ import modelImage from '../../model.png'
 const projects = [
   {
     number: '01',
+    category: 'Talent Search',
     name: 'North East India Talent Search',
     description: 'A focused search to find talents in the North East Region of our Country.',
     images: {
@@ -17,6 +18,7 @@ const projects = [
   },
   {
     number: '02',
+    category: 'Open Auditions',
     name: 'Nationwide Auditions',
     description: 'Open to Indians living anywhere. Applicants from Nepal are also welcome.',
     images: {
@@ -27,6 +29,7 @@ const projects = [
   },
   {
     number: '03',
+    category: 'Talent Search',
     name: 'North East India Talent Search',
     description: 'A focused search to find talents in the North East Region of our Country.',
     images: {
