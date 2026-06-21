@@ -81,7 +81,7 @@ const HeroSection = () => {
                 <span key={`dup-${idx}`} className="inline-block px-6 whitespace-nowrap">
                  Making INDIA'S BiGGEST GIRL DANCE GROUP 'debut 2026'
                 </span>
-              ))}        
+              ))}         n
             </div>
           </div>
 
