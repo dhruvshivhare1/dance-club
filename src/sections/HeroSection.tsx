@@ -4,7 +4,7 @@ import ContactButton from '../components/ContactButton'
 import modelImage from '../../model.png'
 import logoImage from '../../logo.png'
 
-const navLinks = ['About', 'Services', 'Auditions', 'Contact']
+const navLinks = ['About', 'News', 'Auditions', 'Contact']
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)

@@ -15,19 +15,42 @@ const AnimatedText = ({ text, className = '', style }: AnimatedTextProps) => {
     offset: ['start 0.8', 'end 0.2'],
   })
 
-  const chars = text.split('')
+  const segments = text.split(/(\s+)/)
+  const totalChars = text.replace(/\s+/g, '').length
+  let charIndex = 0
 
   return (
     <p ref={ref} className={`${className} relative`} style={style} aria-label={text}>
-      {chars.map((char, i) => (
-        <CharSpan
-          key={i}
-          char={char}
-          index={i}
-          total={chars.length}
-          progress={scrollYProgress}
-        />
-      ))}
+      {segments.map((segment, segIndex) => {
+        if (/^\s+$/.test(segment)) {
+          return (
+            <span key={`space-${segIndex}`} className="whitespace-pre">
+              {segment}
+            </span>
+          )
+        }
+
+        const wordChars = segment.split('')
+        const word = (
+          <span key={`word-${segIndex}`} className="inline-block whitespace-nowrap">
+            {wordChars.map((char) => {
+              const currentIndex = charIndex
+              charIndex += 1
+              return (
+                <CharSpan
+                  key={`${char}-${currentIndex}`}
+                  char={char}
+                  index={currentIndex}
+                  total={totalChars}
+                  progress={scrollYProgress}
+                />
+              )
+            })}
+          </span>
+        )
+
+        return word
+      })}
     </p>
   )
 }
@@ -43,15 +66,16 @@ const CharSpan = ({ char, index, total, progress }: CharSpanProps) => {
   const start = index / total
   const end = (index + 1) / total
   const opacity = useTransform(progress, [start, end], [0.2, 1])
+  const displayChar = char === ' ' ? ' ' : char
 
   return (
-    <span className="relative inline-block">
-      <span className="invisible">{char === ' ' ? '\u00A0' : char}</span>
+    <span className="relative inline-block whitespace-pre">
+      <span className="invisible whitespace-pre">{displayChar}</span>
       <motion.span
-        className="absolute left-0 top-0"
+        className="absolute left-0 top-0 whitespace-pre"
         style={{ opacity }}
       >
-        {char === ' ' ? '\u00A0' : char}
+        {displayChar}
       </motion.span>
     </span>
   )
