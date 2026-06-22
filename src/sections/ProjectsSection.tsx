@@ -27,17 +27,6 @@ const projects = [
       col2: modelImage,
     },
   },
-  {
-    number: '03',
-    category: 'Talent Search',
-    name: 'North East India Talent Search',
-    description: 'A focused search to find talents in the North East Region of our Country.',
-    images: {
-      col1Top: modelImage,
-      col1Bottom: modelImage,
-      col2: modelImage,
-    },
-  },
 ]
 
 interface ProjectCardProps {
@@ -101,9 +90,9 @@ const ProjectCard = ({ project, index, totalCards, range, progress }: ProjectCar
         </div>
 
         {/* Image grid */}
-        <div className="flex gap-3 sm:gap-4 flex-1 min-h-0">
-          {/* Left column - 40% */}
-          <div className="w-[40%] flex flex-col gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-1 min-h-0">
+          {/* Left column - 40% on desktop, hidden on mobile */}
+          <div className="hidden sm:flex w-[40%] flex-col gap-3 sm:gap-4">
             <div
               className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] overflow-hidden"
               style={{ height: 'clamp(130px, 16vw, 230px)' }}
@@ -128,8 +117,8 @@ const ProjectCard = ({ project, index, totalCards, range, progress }: ProjectCar
             </div>
           </div>
 
-          {/* Right column - 60% */}
-          <div className="w-[60%] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] overflow-hidden">
+          {/* Right column - full width on mobile, 60% on desktop */}
+          <div className="w-full sm:w-[60%] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] overflow-hidden">
             <img
               src={project.images.col2}
               alt={`${project.name} main`}

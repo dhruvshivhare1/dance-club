@@ -9,6 +9,7 @@ const navLinks = ['About', 'News', 'Auditions', 'Contact']
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [offset, setOffset] = useState(0)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +26,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex justify-between items-center px-6 md:px-10 py-4 md:py-6 bg-[#0C0C0C] border-b border-[#D7E2EA]/10">
+      <nav className="sticky top-0 z-50 flex justify-between items-center px-5 md:px-10 py-4 md:py-6 bg-[#0C0C0C] border-b border-[#D7E2EA]/10">
         <Link to="/" className="flex-shrink-0">
           <img
             src={logoImage}
@@ -33,7 +34,8 @@ const HeroSection = () => {
             className="h-12 md:h-16 w-auto object-contain"
           />
         </Link>
-        <div className="flex gap-6 md:gap-10 lg:gap-16">
+
+        <div className="hidden md:flex gap-6 md:gap-10 lg:gap-16">
           {navLinks.map((link) => {
             const target = link.toLowerCase() === 'contact' ? '/contact' : `/#${link.toLowerCase()}`
             return (
@@ -47,7 +49,47 @@ const HeroSection = () => {
             )
           })}
         </div>
+
+        <button
+          type="button"
+          className="md:hidden p-2 rounded-md text-[#D7E2EA] border border-[#D7E2EA]/10"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+        >
+          {mobileOpen ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
       </nav>
+
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div className="absolute inset-0 bg-black/70" onClick={() => setMobileOpen(false)} />
+          <div className="relative z-10 mx-auto mt-20 w-11/12 max-w-xs rounded-xl bg-[#0C0C0C] p-6 shadow-2xl border border-[#D7E2EA]/10">
+            <nav className="flex flex-col gap-4">
+              {navLinks.map((link) => {
+                const target = link.toLowerCase() === 'contact' ? '/contact' : `/#${link.toLowerCase()}`
+                return (
+                  <Link
+                    key={link}
+                    to={target}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-[#D7E2EA] font-semibold uppercase tracking-wider text-base hover:opacity-80 transition-opacity duration-150"
+                  >
+                    {link}
+                  </Link>
+                )
+              })}
+            </nav>
+          </div>
+        </div>
+      )}
 
       <section className="relative h-screen bg-[#0C0C0C] overflow-hidden">
         <div className="sticky top-[72px] h-screen flex flex-col" style={{ overflowX: 'clip' }}>
