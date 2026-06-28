@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ScrollVideo from './components/ScrollVideo'
+import ParticlesCanvas from './components/ParticlesCanvas'
 import HeroSection from './sections/HeroSection'
-import MarqueeSection from './sections/MarqueeSection'
 import AboutSection from './sections/AboutSection'
 import ServicesSection from './sections/ServicesSection'
 import ProjectsSection from './sections/ProjectsSection'
@@ -9,14 +10,17 @@ import ContactPage from './pages/ContactPage'
 
 function Home() {
   return (
-    <main style={{ background: '#0C0C0C', overflowX: 'clip' }}>
-      <HeroSection />
-      <MarqueeSection />
-      <AboutSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <FooterSection />
-    </main>
+    <>
+      <ScrollVideo />
+      <ParticlesCanvas />
+      <main style={{ position: 'relative', zIndex: 5, overflowX: 'clip' }}>
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+        <ProjectsSection />
+        <FooterSection />
+      </main>
+    </>
   )
 }
 

@@ -1,160 +1,114 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useRef, useEffect, useState } from 'react'
+import { ChevronDown, Menu, X } from 'lucide-react'
+import FadeIn from '../components/FadeIn'
 import ContactButton from '../components/ContactButton'
-import modelImage from '../../model.png'
-import logoImage from '../../logo.png'
+import logo from '../../logo.png'
 
-const navLinks = ['About', 'News', 'Auditions', 'Contact']
+const navLinks = ['About', 'Auditions', 'Contact']
 
 const HeroSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const [offset, setOffset] = useState(0)
+  const heroRef = useRef<HTMLElement>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return
-      const sectionTop = sectionRef.current.offsetTop
-      const rawOffset = (window.scrollY - sectionTop) * 0.4
-      setOffset(rawOffset)
+      if (!heroRef.current) return
+      const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.3))
+      heroRef.current.style.opacity = String(fade)
     }
-
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <>
-      <nav className="sticky top-0 z-50 flex justify-between items-center px-5 md:px-10 py-4 md:py-6 bg-[#0C0C0C] border-b border-[#D7E2EA]/10">
-        <Link to="/" className="flex-shrink-0">
-          <img
-            src={logoImage}
-            alt="Logo"
-            className="h-12 md:h-16 w-auto object-contain"
-          />
-        </Link>
+    <section ref={heroRef} className="relative h-screen w-full flex flex-col">
+      {/* Gradient overlay from bottom */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-        <div className="hidden md:flex gap-6 md:gap-10 lg:gap-16">
-          {navLinks.map((link) => {
-            const target = link.toLowerCase() === 'contact' ? '/contact' : `/#${link.toLowerCase()}`
-            return (
-              <Link
+      {/* Fixed Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-[50] px-4 sm:px-6 md:px-10 py-4 sm:py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-white/10 bg-white/10 px-3 py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.25)] backdrop-blur-xl sm:px-5">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <img src={logo} alt="Logo" className="h-10 sm:h-12 md:h-14 w-auto" />
+          </div>
+
+          <div className="hidden sm:flex items-center justify-end gap-6 md:gap-8">
+            {navLinks.map((link) => (
+              <a
                 key={link}
-                to={target}
-                className="text-[#D7E2EA] font-medium uppercase tracking-wider text-xs md:text-sm lg:text-base hover:opacity-70 transition-opacity duration-200 whitespace-nowrap"
+                href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                className="font-medium tracking-[0.2em] text-[0.72rem] uppercase text-gray-200 transition-all duration-200 hover:text-white"
               >
                 {link}
-              </Link>
-            )
-          })}
-        </div>
+              </a>
+            ))}
+          </div>
 
-        <button
-          type="button"
-          className="md:hidden p-2 rounded-md text-[#D7E2EA] border border-[#D7E2EA]/10"
-          onClick={() => setMobileOpen((open) => !open)}
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-        >
-          {mobileOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
-        </button>
+          <div className="flex items-center gap-3 sm:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileOpen((prev) => !prev)}
+              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 p-2 text-white transition hover:bg-white/10"
+              aria-label="Toggle navigation"
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
       </nav>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 md:hidden">
-          <div className="absolute inset-0 bg-black/70" onClick={() => setMobileOpen(false)} />
-          <div className="relative z-10 mx-auto mt-20 w-11/12 max-w-xs rounded-xl bg-[#0C0C0C] p-6 shadow-2xl border border-[#D7E2EA]/10">
-            <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => {
-                const target = link.toLowerCase() === 'contact' ? '/contact' : `/#${link.toLowerCase()}`
-                return (
-                  <Link
-                    key={link}
-                    to={target}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-[#D7E2EA] font-semibold uppercase tracking-wider text-base hover:opacity-80 transition-opacity duration-150"
-                  >
-                    {link}
-                  </Link>
-                )
-              })}
-            </nav>
+        <div className="fixed inset-x-4 top-20 z-[45] rounded-3xl border border-white/10 bg-black/95 p-4 shadow-2xl sm:hidden">
+          <div className="flex flex-col gap-3">
+            {navLinks.map((link) => (
+              <a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                onClick={() => setMobileOpen(false)}
+                className="text-white text-base font-medium hover:text-purple-300 transition-colors duration-200"
+              >
+                {link}
+              </a>
+            ))}
           </div>
         </div>
       )}
 
-      <section className="relative h-screen bg-[#0C0C0C] overflow-hidden">
-        <div className="sticky top-[72px] h-screen flex flex-col" style={{ overflowX: 'clip' }}>
-          <div ref={sectionRef} className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden gap-0">
-            <div
-              className="flex items-center whitespace-nowrap text-[1.2rem] sm:text-[1.5rem] md:text-[1.8rem] lg:text-[2.2rem] font-bold uppercase tracking-wider text-white/60 select-none font-sans"
-              style={{ transform: `translateX(${-offset}px)`, letterSpacing: '0.05em' }}
-            >
-              {Array.from({ length: 12 }, (_, idx) => (
-                <span key={idx} className="inline-block px-6 whitespace-nowrap">
-                  We Don't Rush, We Build
-                </span>
-              ))}
-              {Array.from({ length: 12 }, (_, idx) => (
-                <span key={`dup-${idx}`} className="inline-block px-6 whitespace-nowrap">
-                  We Don't Rush, We Build
-                </span>
-              ))}        
-            </div>
+      {/* Hero Content — anchored to bottom center */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-end text-center px-6 pb-24">
+        <FadeIn delay={0.15} y={30}>
+          <h1
+            className="hidden sm:block font-semibold leading-tight max-w-5xl text-white"
+            style={{ fontSize: 'clamp(2.8rem, 5vw, 4.4rem)', lineHeight: 1.05 }}
+          >
+            Making INDIA'S<br />
+            BiGGEST GIRL DANCE<br />
+            GROUP debut 2026
+          </h1>
+          <h1
+            className="sm:hidden font-semibold leading-tight max-w-full text-white"
+            style={{ fontSize: 'clamp(2rem, 7vw, 4.5rem)' }}
+          >
+            Making INDIA'S BiGGEST GIRL DANCE GROUP{' '}
+            <span className="underlined-text">
+              <span className="line" />
+              <span>debut 2026</span>
+            </span>
+          </h1>
+        </FadeIn>
 
-            <div
-              className="flex items-center whitespace-nowrap text-[1.2rem] sm:text-[1.5rem] md:text-[1.8rem] lg:text-[2.2rem] font-bold uppercase tracking-wider text-white/60 select-none font-sans"
-              style={{ transform: `translateX(${offset}px)`, letterSpacing: '0.05em' }}
-            >
-              {Array.from({ length: 10 }, (_, idx) => (
-                <span key={idx} className="inline-block px-6 whitespace-nowrap">
-                    ---- Making INDIA'S BiGGEST GIRL DANCE GROUP
-                </span>
-              ))}
-              {Array.from({ length: 10 }, (_, idx) => (
-                <span key={`dup-${idx}`} className="inline-block px-6 whitespace-nowrap">
-                 Making INDIA'S BiGGEST GIRL DANCE GROUP 'debut 2026'
-                </span>
-              ))}         n
-            </div>
+        <FadeIn delay={0.35} y={20}>
+          <div className="flex items-center gap-4 mt-10 flex-wrap justify-center">
+            <ContactButton />
           </div>
+        </FadeIn>
+      </div>
 
-          <div className="flex-1 flex items-center justify-center px-6 md:px-10 relative z-10">
-            <div className="w-[65vw] max-w-[620px] sm:w-[60vw] lg:w-[52vw] xl:w-[48vw]" style={{ opacity: 1 }}>
-              <img
-                src={modelImage}
-                alt="Hero model"
-                className="w-full h-auto rounded-[1.25rem] object-contain"
-                style={{ imageRendering: 'auto' }}
-              />
-            </div>
-          </div>
-
-          <div className="relative z-20 flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10">
-            <div style={{ opacity: 1 }}>
-              <p
-                className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px]"
-                style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
-              >
-              Building the Next Generation of Pop Artists
-              </p>
-            </div>``
-
-            <div style={{ opacity: 1 }}>
-              <ContactButton />
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+      {/* Bounce Arrow */}
+      <div className="relative z-10 flex justify-center pb-8">
+        <ChevronDown className="w-6 h-6 text-gray-500 bounce-arrow" />
+      </div>
+    </section>
   )
 }
 
