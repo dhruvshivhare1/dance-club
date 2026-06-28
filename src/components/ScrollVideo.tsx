@@ -17,6 +17,23 @@ const ScrollVideo = () => {
     const ctx = canvas.getContext('2d')!
     let animId: number
 
+    const isMobileDevice =
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+      window.matchMedia('(max-width: 767px)').matches
+
+    if (isMobileDevice) {
+      video.muted = true
+      video.playsInline = true
+      video.autoplay = true
+      video.loop = true
+      video.preload = 'auto'
+      video.style.display = 'block'
+      canvas.style.visibility = 'hidden'
+      video.currentTime = 0
+      void video.play().catch(() => undefined)
+      return () => undefined
+    }
+
     function resizeCanvas() {
       const dpr = Math.min(devicePixelRatio, 2)
       const rect = canvas.getBoundingClientRect()
@@ -172,6 +189,8 @@ const ScrollVideo = () => {
         ref={videoRef}
         muted
         playsInline
+        autoPlay
+        loop
         preload="auto"
         crossOrigin="anonymous"
         src={VIDEO_URL}
