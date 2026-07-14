@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ScrollVideo from './components/ScrollVideo'
-import ParticlesCanvas from './components/ParticlesCanvas'
 import HeroSection from './sections/HeroSection'
 import AboutSection from './sections/AboutSection'
 import ServicesSection from './sections/ServicesSection'
@@ -13,7 +12,6 @@ function Home() {
   return (
     <>
       <ScrollVideo />
-      <ParticlesCanvas />
       <main style={{ position: 'relative', zIndex: 5, overflowX: 'clip' }}>
         <HeroSection />
         <AboutSection />

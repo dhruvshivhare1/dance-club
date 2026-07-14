@@ -69,33 +69,10 @@ const FooterSection = () => {
                 className="font-light text-[#D7E2EA] opacity-80 leading-relaxed"
                 style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.15rem)' }}
               >
-                Selected trainees may receive support during training, including accommodation assistance depending on the development stage and program requirements.
+                Selected trainees may receive support during training, including accommodation assistance or monthly stipend depending on the development stage and program requirements.
               </p>
             </div>
 
-            {/* Monthly Stipend */}
-            <div>
-              <h3
-                className="font-black uppercase text-[#D7E2EA] mb-6 sm:mb-8"
-                style={{ fontSize: 'clamp(1.3rem, 2.2vw, 2rem)' }}
-              >
-                Monthly Stipend
-              </h3>
-              <div className="space-y-4">
-                <p
-                  className="font-light text-[#D7E2EA] opacity-80 leading-relaxed"
-                  style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.15rem)' }}
-                >
-                  Selected trainees may receive a fixed monthly stipend to support basic training-related needs.
-                </p>
-                <p
-                  className="font-light text-[#D7E2EA] opacity-80 leading-relaxed"
-                  style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.15rem)' }}
-                >
-                  The stipend system is linked to participation, discipline, and program performance.
-                </p>
-              </div>
-            </div>
           </div>
         </FadeIn>
 
@@ -109,7 +86,7 @@ const FooterSection = () => {
               className="font-black uppercase text-[#D7E2EA] mb-8 sm:mb-10 md:mb-12"
               style={{ fontSize: 'clamp(1.3rem, 2.2vw, 2rem)' }}
             >
-              Accountability System
+              Development System
             </h3>
             <p
               className="font-light text-[#D7E2EA] opacity-80 leading-relaxed mb-8 sm:mb-10"
