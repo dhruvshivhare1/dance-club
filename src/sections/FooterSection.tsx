@@ -95,7 +95,7 @@ const FooterSection = () => {
               To maintain professional standards, our development system includes:
             </p>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8">
-              {['Attendance Tracking', 'Weekly Evaluations', 'Performance Monitoring', 'Training Documentation', 'Progress Assessments'].map((item, i) => (
+              {['Attendance Tracking', 'Weekly Evaluations', 'Performance Monitoring', 'Training Documentation', 'Still Training', 'Rap', 'Vocals', 'Dance', 'Media', 'Personlity'].map((item, i) => (
                 <FadeIn key={item} delay={0.2 + i * 0.05} y={20}>
                   <div
                     className="rounded-[20px] sm:rounded-[30px] p-4 sm:p-6 border border-[#D7E2EA]/20 hover:border-[#D7E2EA]/40 transition-colors duration-300"
