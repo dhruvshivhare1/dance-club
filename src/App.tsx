@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import ScrollVideo from './components/ScrollVideo'
 import HeroSection from './sections/HeroSection'
 import AboutSection from './sections/AboutSection'
 import ServicesSection from './sections/ServicesSection'
@@ -10,17 +9,21 @@ import ContactPage from './pages/ContactPage'
 
 function Home() {
   return (
-    <>
-      <ScrollVideo />
-      <main style={{ position: 'relative', zIndex: 5, overflowX: 'clip' }}>
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <ProjectsSection />
-        <NewsSection />
-        <FooterSection />
-      </main>
-    </>
+    <main
+      style={{
+        position: 'relative',
+        zIndex: 5,
+        overflowX: 'clip',
+        backgroundColor: '#000',
+      }}
+    >
+      <HeroSection />
+      <AboutSection />
+      <ServicesSection />
+      <ProjectsSection />
+      <NewsSection />
+      <FooterSection />
+    </main>
   )
 }
 

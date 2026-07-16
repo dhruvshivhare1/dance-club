@@ -34,6 +34,7 @@ const AboutSection = () => {
     <section
       id="about"
       className="min-h-screen flex flex-col items-center justify-center px-5 sm:px-8 md:px-10 py-20 relative"
+      style={{ background: '#000' }}
     >
       {/* Decorative images */}
       {decorativeImages.map((img, i) => (
