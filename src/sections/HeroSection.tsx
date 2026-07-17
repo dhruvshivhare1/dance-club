@@ -16,12 +16,6 @@ const NAV_LINKS = [
   { label: 'Contact', to: '/contact' },
 ]
 
-const STATS = [
-  { number: 300, label: 'Crafted\nBrands' },
-  { number: 200, label: 'Digital\nProducts' },
-  { number: 100, label: 'Ventures\nFunded' },
-]
-
 const HEADING_PRIMARY = ["BUILDING", "INDIA'S NEXT", "POPSTARS"]
 const HEADING_SECONDARY = ["GIRL GROUP", "DEBUT 2026"]
 
@@ -34,15 +28,6 @@ const fadeDown = {
     opacity: 1,
     y: 0,
     transition: { delay: i * 0.1, duration: 0.5, ease },
-  }),
-}
-
-const fadeUp = {
-  initial: { opacity: 0, y: 32 },
-  animate: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease },
   }),
 }
 
